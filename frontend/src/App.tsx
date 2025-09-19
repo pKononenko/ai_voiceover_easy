@@ -225,31 +225,61 @@ const App = () => {
       </header>
 
       {!isAuthenticated ? (
-        <section className="card">
-          <div className="card-header">
-            <h2>{authMode === "login" ? "Log in" : "Sign up"}</h2>
-            <button
-              type="button"
-              className="link"
-              onClick={() => setAuthMode(authMode === "login" ? "signup" : "login")}
-            >
-              {authMode === "login" ? "Need an account?" : "Already registered?"}
-            </button>
+        <section className="auth-view">
+          <div className="auth-hero">
+            <div className="badge">New</div>
+            <h2>Turn manuscripts into beautiful audio with a single click.</h2>
+            <p>
+              Upload a document or paste your script, pick a voice that matches your brand, and
+              generate polished narration ready for download in minutes.
+            </p>
+            <ul>
+              <li>🎙️ Premium multilingual voice library</li>
+              <li>⚡ Fast generation with progress tracking</li>
+              <li>📚 Save and revisit every audiobook project</li>
+            </ul>
           </div>
 
-          <form className="form" onSubmit={authForm.handleSubmit(handleAuthSubmit)}>
-            <label>
-              Email
-              <input type="email" required {...authForm.register("email")} />
-            </label>
-            <label>
-              Password
-              <input type="password" required minLength={6} {...authForm.register("password")} />
-            </label>
-            <button type="submit" className="primary">
-              {authMode === "login" ? "Log in" : "Create account"}
-            </button>
-          </form>
+          <div className="auth-card">
+            <div className="card-header">
+              <h2>{authMode === "login" ? "Welcome back" : "Create your account"}</h2>
+              <button
+                type="button"
+                className="link"
+                onClick={() => setAuthMode(authMode === "login" ? "signup" : "login")}
+              >
+                {authMode === "login" ? "Need an account?" : "Already registered?"}
+              </button>
+            </div>
+
+            <form className="form" onSubmit={authForm.handleSubmit(handleAuthSubmit)}>
+              <label>
+                Email address
+                <input
+                  type="email"
+                  required
+                  autoComplete="email"
+                  placeholder="you@example.com"
+                  {...authForm.register("email")}
+                />
+              </label>
+              <label>
+                Password
+                <input
+                  type="password"
+                  required
+                  minLength={6}
+                  autoComplete={authMode === "login" ? "current-password" : "new-password"}
+                  placeholder="••••••••"
+                  {...authForm.register("password")}
+                />
+              </label>
+              <button type="submit" className="primary">
+                {authMode === "login" ? "Log in" : "Create account"}
+              </button>
+            </form>
+            <p className="fine-print">By continuing you agree to our terms of service.</p>
+          </div>
         </section>
       ) : (
         <section className="dashboard">
